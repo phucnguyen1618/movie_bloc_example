@@ -23,6 +23,8 @@ class _LoadingDataWidgetState extends State<LoadingDataWidget> {
         return _buildMovieListByGenreLoading();
       case LoadingViewType.movieDetail:
         return _buildLoadingMovieDetail();
+      case LoadingViewType.personDetail:
+        return _buildLoadingPersonDetail();
     }
   }
 
@@ -449,7 +451,7 @@ class _LoadingDataWidgetState extends State<LoadingDataWidget> {
               child: Row(
                 children: List.generate(
                   10,
-                      (index) => Container(
+                  (index) => Container(
                     width: 200.0,
                     height: 100.0,
                     margin: const EdgeInsets.only(right: 12.0),
@@ -475,7 +477,7 @@ class _LoadingDataWidgetState extends State<LoadingDataWidget> {
               child: Row(
                 children: List.generate(
                   10,
-                      (index) => Container(
+                  (index) => Container(
                     width: 100.0,
                     height: 100.0,
                     margin: const EdgeInsets.only(right: 12.0),
@@ -491,6 +493,291 @@ class _LoadingDataWidgetState extends State<LoadingDataWidget> {
       ),
     );
   }
+
+  Widget _buildLoadingPersonDetail() {
+    return SafeArea(
+      child: Container(
+        padding: const EdgeInsets.all(8.0),
+        color: Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 200.0,
+              height: 14.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                color: Colors.grey.shade300,
+              ),
+            ),
+            const SizedBox(height: 24.0),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 120.0,
+                  height: 180.0,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    color: Colors.grey.shade300,
+                  ),
+                ),
+                const SizedBox(width: 12.0),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: 200.0,
+                        height: 14.0,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.0),
+                          color: Colors.grey.shade300,
+                        ),
+                      ),
+                      const SizedBox(height: 12.0),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Container(
+                                  width: 120.0,
+                                  height: 12.0,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    color: Colors.grey.shade300,
+                                  ),
+                                ),
+                                const SizedBox(height: 8.0),
+                                Container(
+                                  width: 60.0,
+                                  height: 12.0,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    color: Colors.grey.shade300,
+                                  ),
+                                ),
+                                const SizedBox(height: 12.0),
+                                Container(
+                                  width: 120.0,
+                                  height: 12.0,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    color: Colors.grey.shade300,
+                                  ),
+                                ),
+                                const SizedBox(height: 8.0),
+                                Container(
+                                  width: 60.0,
+                                  height: 12.0,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    color: Colors.grey.shade300,
+                                  ),
+                                ),
+                                const SizedBox(height: 12.0),
+                                Container(
+                                  width: 120.0,
+                                  height: 12.0,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    color: Colors.grey.shade300,
+                                  ),
+                                ),
+                                const SizedBox(height: 8.0),
+                                Container(
+                                  width: 60.0,
+                                  height: 12.0,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    color: Colors.grey.shade300,
+                                  ),
+                                ),
+                                const SizedBox(height: 12.0),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 16.0),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Container(
+                                  width: 120.0,
+                                  height: 12.0,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    color: Colors.grey.shade300,
+                                  ),
+                                ),
+                                const SizedBox(height: 8.0),
+                                Container(
+                                  width: 60.0,
+                                  height: 12.0,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    color: Colors.grey.shade300,
+                                  ),
+                                ),
+                                const SizedBox(height: 12.0),
+                                Container(
+                                  width: 120.0,
+                                  height: 12.0,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    color: Colors.grey.shade300,
+                                  ),
+                                ),
+                                const SizedBox(height: 8.0),
+                                Container(
+                                  width: 60.0,
+                                  height: 12.0,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    color: Colors.grey.shade300,
+                                  ),
+                                ),
+                                const SizedBox(height: 12.0),
+                                Container(
+                                  width: 120.0,
+                                  height: 12.0,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    color: Colors.grey.shade300,
+                                  ),
+                                ),
+                                const SizedBox(height: 8.0),
+                                Container(
+                                  width: 60.0,
+                                  height: 12.0,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    color: Colors.grey.shade300,
+                                  ),
+                                ),
+                                const SizedBox(height: 12.0),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16.0),
+            Container(
+              width: 100.0,
+              height: 12.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                color: Colors.grey.shade300,
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: List.generate(
+                  10,
+                  (index) => Padding(
+                    padding: const EdgeInsets.only(right: 12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          width: 150.0,
+                          height: 200.0,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade300,
+                          ),
+                        ),
+                        const SizedBox(height: 4.0),
+                        Container(
+                          width: 150.0,
+                          height: 12.0,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.0),
+                            color: Colors.grey.shade300,
+                          ),
+                        ),
+                        const SizedBox(height: 4.0),
+                        Container(
+                          width: 100.0,
+                          height: 12.0,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.0),
+                            color: Colors.grey.shade300,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ).toList(),
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            Container(
+              width: 100.0,
+              height: 12.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                color: Colors.grey.shade300,
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            Container(
+              height: 12.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                color: Colors.grey.shade300,
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            Container(
+              height: 12.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                color: Colors.grey.shade300,
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            Container(
+              height: 12.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                color: Colors.grey.shade300,
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            Container(
+              height: 12.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                color: Colors.grey.shade300,
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            Container(
+              height: 12.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                color: Colors.grey.shade300,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 enum LoadingViewType {
@@ -499,4 +786,5 @@ enum LoadingViewType {
   nowPlaying,
   movieByGenre,
   movieDetail,
+  personDetail,
 }

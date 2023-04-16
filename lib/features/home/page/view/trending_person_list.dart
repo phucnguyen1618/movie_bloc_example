@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/features/home/bloc/home_bloc.dart';
 import 'package:movie_app/features/home/bloc/home_state.dart';
+import 'package:movie_app/features/person/page/person_page.dart';
 
 import '../../../../shared/items/item_credit.dart';
 
@@ -36,6 +37,16 @@ class TrendingPersonList extends StatelessWidget {
                           profile:
                               state.trendingPersons![index].profilePath ?? '',
                           job: state.trendingPersons![index].knownForDepartment,
+                          onView: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => const PersonPage(),
+                                    settings: RouteSettings(
+                                        name: 'person_id',
+                                        arguments:
+                                            state.trendingPersons![index].id)));
+                          },
                         );
                       },
                       separatorBuilder: (context, index) =>

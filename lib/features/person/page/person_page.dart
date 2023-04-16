@@ -8,8 +8,9 @@ class PersonPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int personId =  ModalRoute.of(context)!.settings.arguments as int;
     return BlocProvider(
-      create: (_) => PersonBloc(),
+      create: (_) => PersonBloc(personId),
       child: const PersonView(),
     );
   }

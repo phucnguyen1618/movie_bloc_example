@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_api/constants/app_constants.dart';
 import 'package:movie_app/features/detail/bloc/movie_detail_bloc.dart';
 import 'package:movie_app/features/detail/bloc/movie_detail_state.dart';
 import 'package:movie_app/shared/items/item_similar_movie.dart';
@@ -31,7 +30,13 @@ class SimilarMovieList extends StatelessWidget {
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return ItemSimilarMovie(
-                            movie: state.similarMovieList![index]);
+                          movie: state.similarMovieList![index],
+                          onView: () {
+                            BlocProvider.of<MovieDetailBloc>(context)
+                                .onItemSimilarMovieListClicked(
+                                    state.similarMovieList![index].idMovie);
+                          },
+                        );
                       },
                       separatorBuilder: (context, index) =>
                           const SizedBox(width: 8.0),

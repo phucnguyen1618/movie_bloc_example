@@ -1,10 +1,12 @@
 import 'package:movie_api/datasource/movie_data_api.dart';
 import 'package:movie_api/model/movie_detail.dart';
+import 'package:movie_api/model/person_detail.dart';
 import 'package:movie_api/repository/movie_repository.dart';
 import 'package:movie_api/response/credit_response.dart';
 import 'package:movie_api/response/genre_response.dart';
 import 'package:movie_api/response/image_response.dart';
 import 'package:movie_api/response/keyword_response.dart';
+import 'package:movie_api/response/movie_credit_response.dart';
 import 'package:movie_api/response/movie_list_response.dart';
 import 'package:movie_api/response/now_playing_response.dart';
 import 'package:movie_api/response/person_response.dart';
@@ -97,5 +99,15 @@ class MovieDataRepositoryImpl extends MovieDataRepository {
   @override
   Future<PersonResponse> trendingPersonForWeek(String apiKey) {
     return _api.getTrendingPersonForWeek(apiKey);
+  }
+
+  @override
+  Future<MovieCreditResponse> movieCreditByPerson(String apiKey, int personId) {
+    return _api.getMovieCreditsByPerson(apiKey, personId);
+  }
+
+  @override
+  Future<PersonDetail> personDetail(String apiKey, int personId) {
+    return _api.getPersonDetail(apiKey, personId);
   }
 }

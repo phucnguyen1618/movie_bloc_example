@@ -2,9 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:movie_api/constants/app_constants.dart';
 import 'package:movie_api/model/genre.dart';
 import 'package:movie_api/response/genre_response.dart';
+import 'package:movie_api/response/movie_credit_response.dart';
 import 'package:retrofit/http.dart';
 
 import '../model/movie_detail.dart';
+import '../model/person_detail.dart';
 import '../response/credit_response.dart';
 import '../response/image_response.dart';
 import '../response/keyword_response.dart';
@@ -110,4 +112,17 @@ abstract class MovieDataAPI {
   @GET('/trending/person/week')
   Future<PersonResponse> getTrendingPersonForWeek(
       @Query('api_key') String apiKey);
+
+  @GET('/person/{person_id}')
+  Future<PersonDetail> getPersonDetail(
+    @Query('api_key') String apiKey,
+    @Path('person_id') int personId,
+  );
+
+  //Lay ra danh sach cac bo phim ma person nay tham gia theo personID
+  @GET('/person/{person_id}/movie_credits')
+  Future<MovieCreditResponse> getMovieCreditsByPerson(
+    @Query('api_key') String apiKey,
+    @Path('person_id') int personId,
+  );
 }

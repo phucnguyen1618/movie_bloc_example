@@ -3,8 +3,10 @@ import 'package:movie_api/response/keyword_response.dart';
 import 'package:movie_api/response/now_playing_response.dart';
 
 import '../model/movie_detail.dart';
+import '../model/person_detail.dart';
 import '../response/credit_response.dart';
 import '../response/image_response.dart';
+import '../response/movie_credit_response.dart';
 import '../response/movie_list_response.dart';
 import '../response/person_response.dart';
 import '../response/review_response.dart';
@@ -45,4 +47,8 @@ abstract class MovieDataRepository {
   Future<VideoResponse> videos(String apiKey, int movieId);
 
   Future<PersonResponse> trendingPersonForWeek(String apiKey);
+
+  Future<PersonDetail> personDetail(String apiKey, int personId);
+
+  Future<MovieCreditResponse> movieCreditByPerson(String apiKey, int personId);
 }

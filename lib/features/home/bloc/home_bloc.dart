@@ -110,6 +110,7 @@ class HomeBloc extends BlocBase<HomeState> {
       nowPlaying: MovieStatus.success,
       topRated: MovieStatus.success,
       topRatedList: data5List,
+      trendingPersonList: personList,
     ));
     try {
       final trendingResponse = await movieRepository.trendingMovies(
@@ -128,6 +129,7 @@ class HomeBloc extends BlocBase<HomeState> {
         nowPlayingList: data4List,
         topRated: MovieStatus.success,
         topRatedList: data5List,
+        trendingPersonList: personList,
       ));
     } catch (error) {
       emit(state.copyWith(
@@ -141,6 +143,7 @@ class HomeBloc extends BlocBase<HomeState> {
         nowPlayingList: data4List,
         topRated: MovieStatus.success,
         topRatedList: data5List,
+        trendingPersonList: personList,
       ));
     }
   }

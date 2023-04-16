@@ -64,8 +64,10 @@ class GenreList extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: state.movies
-                                        .map((e) => ItemDiscoverMovie(movie: e))
+                                    children: List<Widget>.generate(
+                                            state.movies.length,
+                                            (index) => ItemDiscoverMovie(
+                                                movie: state.movies[index]))
                                         .toList(),
                                   ),
                                 ),

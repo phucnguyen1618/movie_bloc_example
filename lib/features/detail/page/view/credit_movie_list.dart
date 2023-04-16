@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/features/detail/bloc/movie_detail_bloc.dart';
 import 'package:movie_app/features/detail/bloc/movie_detail_state.dart';
+import 'package:movie_app/features/person/page/person_page.dart';
 
 import '../../../../shared/items/item_credit.dart';
 
@@ -25,21 +26,21 @@ class CreditMovieList extends StatelessWidget {
                 const SizedBox(height: 12.0),
                 state.crews != null
                     ? SizedBox(
-                  height: 150.0,
-                  child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return ItemCredit(
-                          name: state.crews![index].name,
-                          profile: state.crews![index].profilePath ?? '',
-                          job: state.crews![index].job,
-                        );
-                      },
-                      separatorBuilder: (context, index) =>
-                      const SizedBox(width: 12.0),
-                      itemCount: state.crews!.length),
-                )
+                        height: 150.0,
+                        child: ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return ItemCredit(
+                                name: state.crews![index].name,
+                                profile: state.crews![index].profilePath ?? '',
+                                job: state.crews![index].job,
+                              );
+                            },
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(width: 12.0),
+                            itemCount: state.crews!.length),
+                      )
                     : const CircularProgressIndicator(),
                 const SizedBox(height: 24.0),
                 const Text(
@@ -61,6 +62,16 @@ class CreditMovieList extends StatelessWidget {
                                 name: state.casts![index].name,
                                 profile: state.casts![index].profilePath ?? '',
                                 job: state.casts![index].character,
+                                onView: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => const PersonPage(),
+                                        settings: RouteSettings(
+                                            name: 'person_id',
+                                            arguments: state.casts![index].id),
+                                      ));
+                                },
                               );
                             },
                             separatorBuilder: (context, index) =>
