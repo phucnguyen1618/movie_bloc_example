@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_api/constants/app_constants.dart';
+import 'package:movie_app/features/detail/page/movie_detail_page.dart';
+import 'package:movie_app/features/movie_list/bloc/movie_event.dart';
 import 'package:movie_app/features/movie_list/bloc/movie_list_bloc.dart';
 import 'package:movie_app/features/movie_list/bloc/movie_list_state.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:movie_app/shared/items/item_movie_list.dart';
 
 import '../../../../shared/widgets/widget_error.dart';
 
@@ -15,8 +16,13 @@ class MovieListView extends StatefulWidget {
 }
 
 class _MovieListViewState extends State<MovieListView> {
-  RefreshController refreshController =
-      RefreshController(initialRefresh: false);
+  final _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,47 +40,69 @@ class _MovieListViewState extends State<MovieListView> {
             },
             icon: const Icon(Icons.arrow_back, color: Colors.black)),
       ),
-      body: BlocBuilder<MovieListBloc, MovieListState>(
-        builder: (context, state) => Scaffold(
-          backgroundColor: Colors.white,
-          body: Column(
-            children: [
-              state.status == LoadingMovieListStatus.success
-                  ? state.movieList != null
-                      ? Expanded(
-                          child: SmartRefresher(
-                              enablePullDown: false,
-                              enablePullUp: true,
-                              controller: refreshController,
-                              onRefresh: () {},
-                              onLoading: () {
-                                BlocProvider.of<MovieListBloc>(context)
-                                    .onViewMore();
-                                refreshController.loadComplete();
-                              },
-                              child: GridView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: state.movieList!.length,
-                                  gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 3,
-                                    childAspectRatio: 0.72,
-                                    mainAxisSpacing: 8.0,
-                                  ),
-                                  itemBuilder: (context, index) => Container(
-                                        decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                                image: NetworkImage(
-                                                    AppConstants.imageUrl +
-                                                        state.movieList![index]
-                                                            .posterPath!))),
-                                      ))))
-                      : const Center(child: CircularProgressIndicator())
-                  : const WidgetError()
-            ],
-          ),
-        ),
+      body: Scaffold(
+        backgroundColor: Colors.white,
+        body: BlocBuilder<MovieListBloc, MovieListState>(
+            builder: (context, state) {
+          switch (state.status) {
+            case LoadingMovieListStatus.initial:
+              return const Center(child: CircularProgressIndicator());
+            case LoadingMovieListStatus.success:
+              if (state.movieList != null) {
+                return _buildMovieList(state);
+              }
+              return const SizedBox();
+            case LoadingMovieListStatus.failure:
+              return const WidgetError();
+          }
+        }),
       ),
     );
+  }
+
+  Widget _buildMovieList(MovieListState state) {
+    return GridView.builder(
+        shrinkWrap: true,
+        itemCount: state.isHaveLoadMore
+            ? state.movieList!.length + 1
+            : state.movieList!.length,
+        controller: _scrollController,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          childAspectRatio: 0.72,
+          mainAxisSpacing: 8.0,
+        ),
+        itemBuilder: (context, index) => index >= state.movieList!.length
+            ? const CircularProgressIndicator()
+            : ItemMovieList(
+                movie: state.movieList![index],
+                onView: (movieId) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => const MovieDetailPage(),
+                          settings: RouteSettings(
+                              name: 'movie_id', arguments: movieId)));
+                },
+              ));
+  }
+
+  @override
+  void dispose() {
+    _scrollController
+      ..removeListener(_onScroll)
+      ..dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (_isBottom) context.read<MovieListBloc>().add(MovieFetched());
+  }
+
+  bool get _isBottom {
+    if (!_scrollController.hasClients) return false;
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final currentScroll = _scrollController.offset;
+    return currentScroll >= (maxScroll * 0.9);
   }
 }

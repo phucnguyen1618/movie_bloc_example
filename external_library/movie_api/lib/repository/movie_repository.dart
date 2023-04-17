@@ -51,4 +51,6 @@ abstract class MovieDataRepository {
   Future<PersonDetail> personDetail(String apiKey, int personId);
 
   Future<MovieCreditResponse> movieCreditByPerson(String apiKey, int personId);
+
+  Future<MovieListResponse> search(String apiKey, String keyword, {int? page});
 }

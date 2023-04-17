@@ -110,4 +110,9 @@ class MovieDataRepositoryImpl extends MovieDataRepository {
   Future<PersonDetail> personDetail(String apiKey, int personId) {
     return _api.getPersonDetail(apiKey, personId);
   }
+
+  @override
+  Future<MovieListResponse> search(String apiKey, String keyword, {int? page}) {
+    return _api.searchMovie(apiKey, keyword, page);
+  }
 }

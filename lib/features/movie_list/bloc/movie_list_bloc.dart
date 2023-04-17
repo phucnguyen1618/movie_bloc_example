@@ -5,9 +5,10 @@ import 'package:get/get.dart';
 import 'package:movie_api/constants/app_constants.dart';
 import 'package:movie_api/model/movie.dart';
 import 'package:movie_api/repository/movie_repository.dart';
+import 'package:movie_app/features/movie_list/bloc/movie_event.dart';
 import 'package:movie_app/features/movie_list/bloc/movie_list_state.dart';
 
-class MovieListBloc extends BlocBase<MovieListState> {
+class MovieListBloc extends Bloc<MovieFetched, MovieListState> {
   int page = 1;
   List<Movie>? movies;
   final movieRepository = Get.find<MovieDataRepository>();
@@ -16,61 +17,58 @@ class MovieListBloc extends BlocBase<MovieListState> {
     MovieType movieType, {
     String? nameGenre,
     int? movieID,
-  }) : super(const MovieListState(
-          status: LoadingMovieListStatus.loading,
-          movieList: [],
-        )) {
-    getMovieList(type: movieType, id: movieID, genre: nameGenre);
+  }) : super(MovieListState(movieType: movieType)) {
+    on<MovieFetched>(_onMovieFetched);
   }
 
-  Future<void> onViewMore() async {
+  Future<void> _onMovieFetched(
+      MovieFetched event, Emitter<MovieListState> emit) async {
+    if (!state.isHaveLoadMore) return;
     try {
-      emit(state.copyWith(
-        loadingMovieListStatus: LoadingMovieListStatus.loading,
-        movies: movies,
-      ));
-      page++;
-      List<Movie>? result = await _fetchNowPlayingMovieList(page: page);
-      if (result != null) {
-        movies!.addAll(result);
-      }
-      emit(state.copyWith(
+      if (state.status == LoadingMovieListStatus.initial) {
+        final movies =
+            await getMovieList(type: event.movieType ?? state.movieType);
+        return emit(state.copyWith(
           loadingMovieListStatus: LoadingMovieListStatus.success,
-          movies: movies));
-    } catch (error) {
+          movies: movies,
+          isHaveLoadMore: true,
+          movieType: event.movieType,
+        ));
+      }
+      page++;
+      final movies = await getMovieList(type: state.movieType);
+      emit(movies == null
+          ? state.copyWith(isHaveLoadMore: false)
+          : state.copyWith(
+              loadingMovieListStatus: LoadingMovieListStatus.success,
+              movies: List.of(state.movieList!)..addAll(movies),
+              isHaveLoadMore: true,
+              movieType: state.movieType,
+            ));
+    } catch (_) {
       emit(state.copyWith(
           loadingMovieListStatus: LoadingMovieListStatus.failure));
     }
   }
 
-  Future<void> getMovieList(
+  Future<List<Movie>?> getMovieList(
       {required MovieType type, int? id, String? genre}) async {
     switch (type) {
       case MovieType.recommendations:
-        movies = await _fetchRecommendationsMovieList(movieId: id!);
-        break;
+        return _fetchRecommendationsMovieList(movieId: id!);
       case MovieType.genre:
-        movies = await _fetchMovieListByGenre(genreName: genre!);
-        break;
+        return _fetchMovieListByGenre(genreName: genre!);
       case MovieType.popular:
-        movies = await _fetchPopularMovieList(page: page);
-        break;
+        return _fetchPopularMovieList(page: page);
       case MovieType.topRated:
-        movies = await _fetchTopRatedMovieList(page: page);
-        break;
+        return _fetchTopRatedMovieList(page: page);
       case MovieType.nowPlaying:
-        movies = await _fetchNowPlayingMovieList(page: page);
-        break;
+        return _fetchNowPlayingMovieList(page: page);
       case MovieType.upComing:
-        movies = await _fetchUpcomingMovieList(page: page);
-        break;
+        return _fetchUpcomingMovieList(page: page);
       case MovieType.similarMovies:
-        movies = await _fetchSimilarMovieList(movieId: id!, page: page);
-        break;
+        return _fetchSimilarMovieList(movieId: id!, page: page);
     }
-    emit(state.copyWith(
-        loadingMovieListStatus: LoadingMovieListStatus.success,
-        movies: movies));
   }
 
   Future<List<Movie>?> _fetchRecommendationsMovieList(

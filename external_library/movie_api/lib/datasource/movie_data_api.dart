@@ -125,4 +125,11 @@ abstract class MovieDataAPI {
     @Query('api_key') String apiKey,
     @Path('person_id') int personId,
   );
+
+  @GET('/search/movie')
+  Future<MovieListResponse> searchMovie(
+    @Query('api_key') String apiKey,
+    @Query('query') String keyword,
+    @Query('page') int? page,
+  );
 }

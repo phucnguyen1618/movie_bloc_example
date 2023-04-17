@@ -15,56 +15,44 @@ class GenreMovieListBloc extends BlocBase<GenreMovieListState> {
   var discoverList = <Movie>[];
 
   GenreMovieListBloc()
-      : super(const GenreMovieListState(movies: [], genres: [])) {
-    fetchMovieListByGenre();
+      : super(const GenreMovieListState(
+          movies: [],
+          genres: [],
+          loadingStatus: LoadingMovieStatus.loading,
+        )) {
+    fetchMovieListByGenre(genre: 28.toString());
   }
 
   void onTabGenreClicked(int index) {
     emit(state.copyWith(
       genreList: genreList,
       movieList: [],
+      status: LoadingMovieStatus.loading,
     ));
-    log('Genre: ${genreList[index].name}');
-    fetchDiscoverMovieList(genre: genreList[index].name);
+    log('Genre: ${genreList[index].name} ${genreList[index].id}');
+    fetchMovieListByGenre(genre: genreList[index].id.toString());
   }
 
-  Future<void> fetchMovieListByGenre() async {
+  Future<void> fetchMovieListByGenre({required String genre}) async {
     try {
       final genreResponse =
-          await movieRepository.genreList(AppConstants.apiKey);
+      await movieRepository.genreList(AppConstants.apiKey);
       if (genreResponse.genres.isNotEmpty) {
         genreList = genreResponse.genres;
       }
-      final response =
-          await movieRepository.discoverMovie(AppConstants.apiKey, 1, 'Action');
-      if (response.movies.isNotEmpty) {
-        discoverList = response.movies;
-      }
-      emit(state.copyWith(
-        genreList: genreList,
-        movieList: discoverList,
-      ));
-    } catch (error) {
-      emit(state.copyWith(
-        genreList: [],
-        movieList: [],
-      ));
-    }
-  }
-
-  Future<void> fetchDiscoverMovieList({String? genre}) async {
-    try {
       final response = await movieRepository.discoverMovie(
-          AppConstants.apiKey, 1, genre ?? 'Action');
+          AppConstants.apiKey, 1, genre);
       if (response.movies.isNotEmpty) {
         discoverList = response.movies;
         emit(state.copyWith(
+          status: LoadingMovieStatus.success,
           genreList: genreList,
           movieList: discoverList,
         ));
       }
     } catch (error) {
       emit(state.copyWith(
+        status: LoadingMovieStatus.failure,
         genreList: genreList,
         movieList: [],
       ));

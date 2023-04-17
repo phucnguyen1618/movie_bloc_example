@@ -25,6 +25,8 @@ class _LoadingDataWidgetState extends State<LoadingDataWidget> {
         return _buildLoadingMovieDetail();
       case LoadingViewType.personDetail:
         return _buildLoadingPersonDetail();
+      case LoadingViewType.initial:
+        return _buildInitialLoading();
     }
   }
 
@@ -778,9 +780,163 @@ class _LoadingDataWidgetState extends State<LoadingDataWidget> {
       ),
     );
   }
+
+  Widget _buildInitialLoading() {
+    return SingleChildScrollView(
+      child: Container(
+        color: Colors.white,
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Container(
+                      width: 24.0,
+                      height: 24.0,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade300,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                    Container(
+                      width: 150.0,
+                      height: 24.0,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade300,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                    Container(
+                      width: 24.0,
+                      height: 24.0,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade300,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12.0),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List<Widget>.generate(
+                      25,
+                      (index) => Container(
+                        width: 150.0,
+                        height: 24.0,
+                        margin: const EdgeInsets.only(right: 12.0),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade300,
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                    ).toList(),
+                  ),
+                ),
+                const SizedBox(height: 12.0),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List<Widget>.generate(
+                      25,
+                      (index) => Container(
+                        width: 150.0,
+                        height: 225.0,
+                        margin: const EdgeInsets.only(right: 12.0),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade300,
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                    ).toList(),
+                  ),
+                ),
+                const SizedBox(height: 12.0),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    width: 180.0,
+                    height: 14.0,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade300,
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12.0),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List<Widget>.generate(
+                      25,
+                      (index) => Container(
+                        width: 150.0,
+                        height: 225.0,
+                        margin: const EdgeInsets.only(right: 12.0),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade300,
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                    ).toList(),
+                  ),
+                ),
+                const SizedBox(height: 24.0),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    width: 180.0,
+                    height: 14.0,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade300,
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12.0),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List<Widget>.generate(
+                      25,
+                          (index) => Container(
+                        width: 150.0,
+                        height: 225.0,
+                        margin: const EdgeInsets.only(right: 12.0),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade300,
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                    ).toList(),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 enum LoadingViewType {
+  initial,
   trending,
   upcoming,
   nowPlaying,

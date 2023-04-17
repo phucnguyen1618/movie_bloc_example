@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_api/constants/app_constants.dart';
+import 'package:movie_app/features/detail/page/movie_detail_page.dart';
 import 'package:movie_app/features/person/bloc/person_bloc.dart';
 import 'package:movie_app/features/person/bloc/person_state.dart';
 import 'package:movie_app/shared/items/item_known_for.dart';
@@ -29,7 +29,19 @@ class KnownFor extends StatelessWidget {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: state.movieCasts!
-                              .map((e) => ItemKnownFor(movieCast: e))
+                              .map((e) => ItemKnownFor(
+                                    movieCast: e,
+                                    onDetail: (int id) {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) =>
+                                                  const MovieDetailPage(),
+                                              settings: RouteSettings(
+                                                  name: 'movie_id',
+                                                  arguments: id)));
+                                    },
+                                  ))
                               .toList(),
                         ),
                       )
