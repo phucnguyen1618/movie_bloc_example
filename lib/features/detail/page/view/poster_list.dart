@@ -10,25 +10,27 @@ class PosterList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: List.generate(
-            posters.length > 5 ? 6 : posters.length,
-            (index) => index >= 5
-                ? ViewMoreWidget(
-                    onViewMore: () {},
-                  )
-                : Container(
-                    width: 120.0,
-                    height: 180.0,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: NetworkImage(AppConstants.imageUrl +
-                                posters[index].filePath))),
-                  )).toList(),
-      ),
-    );
+    return posters.isNotEmpty
+        ? SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: List.generate(
+                  posters.length > 5 ? 6 : posters.length,
+                  (index) => index >= 5
+                      ? ViewMoreWidget(
+                          onViewMore: () {},
+                        )
+                      : Container(
+                          width: 120.0,
+                          height: 180.0,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: NetworkImage(AppConstants.imageUrl +
+                                      posters[index].filePath))),
+                        )).toList(),
+            ),
+          )
+        : const Center(child: Text('No poster !!!'));
   }
 }

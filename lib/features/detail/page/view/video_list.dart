@@ -11,15 +11,17 @@ class VideoList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: List<Widget>.generate(
-              videos.length > 5 ? 6 : videos.length,
-              (index) => index >= 5
-                  ? ViewMoreWidget(onViewMore: () {})
-                  : ItemVideo(results: videos[index])).toList()),
-    );
+    return videos.isNotEmpty
+        ? SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: List<Widget>.generate(
+                    videos.length > 5 ? 6 : videos.length,
+                    (index) => index >= 5
+                        ? ViewMoreWidget(onViewMore: () {})
+                        : ItemVideo(results: videos[index])).toList()),
+          )
+        : const Center(child: Text('No video !!!'));
   }
 }

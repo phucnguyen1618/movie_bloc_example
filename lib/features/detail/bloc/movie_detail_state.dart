@@ -6,6 +6,8 @@ import 'package:movie_api/model/keyword.dart';
 import 'package:movie_api/model/movie.dart';
 import 'package:movie_api/model/movie_detail.dart';
 import 'package:movie_api/model/review.dart';
+import 'package:movie_api/response/video_response.dart';
+import 'package:movie_api/model/image.dart' as image;
 
 @immutable
 class MovieDetailState extends Equatable {
@@ -17,6 +19,9 @@ class MovieDetailState extends Equatable {
   final List<Cast>? casts;
   final List<Crew>? crews;
   final List<Review>? reviews;
+  final List<image.Image>? moviePosters;
+  final List<image.Image>? movieBackdrops;
+  final List<Results>? videos;
 
   const MovieDetailState({
     required this.loadingStatus,
@@ -27,6 +32,9 @@ class MovieDetailState extends Equatable {
     this.casts,
     this.crews,
     this.reviews,
+    this.moviePosters,
+    this.movieBackdrops,
+    this.videos,
   });
 
   MovieDetailState copyWith({
@@ -38,6 +46,9 @@ class MovieDetailState extends Equatable {
     List<Cast>? castList,
     List<Crew>? crewList,
     List<Review>? reviewList,
+    List<image.Image>? moviePosters,
+    List<image.Image>? movieBackdrops,
+    List<Results>? videos,
   }) {
     return MovieDetailState(
       loadingStatus: status,
@@ -48,6 +59,9 @@ class MovieDetailState extends Equatable {
       casts: castList,
       crews: crewList,
       reviews: reviewList ?? [],
+      moviePosters: moviePosters,
+      movieBackdrops: movieBackdrops,
+      videos: videos,
     );
   }
 
@@ -61,6 +75,9 @@ class MovieDetailState extends Equatable {
         keywords,
         movieDetail,
         loadingStatus,
+        moviePosters,
+        movieBackdrops,
+        videos,
       ];
 }
 

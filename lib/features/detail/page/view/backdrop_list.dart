@@ -10,23 +10,25 @@ class BackdropList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: List.generate(
-            backdrops.length > 5 ? 6 : backdrops.length,
-            (index) => index >= 5
-                ? ViewMoreWidget(onViewMore: () {})
-                : Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    height: 180.0,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: NetworkImage(AppConstants.imageUrl +
-                                backdrops[index].filePath))),
-                  )).toList(),
-      ),
-    );
+    return backdrops.isNotEmpty
+        ? SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: List.generate(
+                  backdrops.length > 5 ? 6 : backdrops.length,
+                  (index) => index >= 5
+                      ? ViewMoreWidget(onViewMore: () {})
+                      : Container(
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          height: 180.0,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: NetworkImage(AppConstants.imageUrl +
+                                      backdrops[index].filePath))),
+                        )).toList(),
+            ),
+          )
+        : const Center(child: Text('No backdrop !!!'));
   }
 }
